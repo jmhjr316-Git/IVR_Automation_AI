@@ -345,6 +345,18 @@ class IvrIntegration {
             // Send the remaining digits
             response = await this.ivrTester.sendDtmf(remainingDigits);
             
+            // Check if we need an additional call to process the input
+            let responseText = this.ivrTester.extractTextFromResponse(response);
+            if (responseText.trim() === '') {
+              console.log('No immediate response after sending digits. Making additional call...');
+              
+              // Wait a moment
+              await new Promise(resolve => setTimeout(resolve, this.ivrTester.config.defaultWaitTime / 2));
+              
+              // Make an additional call with no input to get the response
+              response = await this.ivrTester.continueCall();
+            }
+            
             // Log the split operation
             logger.info('Split multi-digit input', { 
               firstDigit, 
@@ -378,6 +390,18 @@ class IvrIntegration {
               
               console.log(`Sending remaining digits: ${remainingDigits}`);
               response = await this.ivrTester.sendDtmf(remainingDigits);
+              
+              // Check if we need an additional call to process the input
+              let responseText = this.ivrTester.extractTextFromResponse(response);
+              if (responseText.trim() === '') {
+                console.log('No immediate response after sending digits. Making additional call...');
+                
+                // Wait a moment
+                await new Promise(resolve => setTimeout(resolve, this.ivrTester.config.defaultWaitTime / 2));
+                
+                // Make an additional call with no input to get the response
+                response = await this.ivrTester.continueCall();
+              }
             } else {
               response = await this.ivrTester.sendDtmf(digits);
             }
@@ -392,6 +416,23 @@ class IvrIntegration {
         
         // Extract the new prompt
         currentPrompt = this.ivrTester.extractTextFromResponse(response);
+        
+        // Check if we got a blank response after sending digits
+        // This can happen with multi-digit inputs where the IVR needs an additional prompt
+        if (currentPrompt.trim() === '' && /^\d{2,}$/.test(action)) {
+          console.log('Blank response detected after multi-digit input. Sending empty continue...');
+          
+          // Send a continue call (no digits) to get the next prompt
+          response = await this.ivrTester.continueCall();
+          
+          // Wait again for processing
+          await new Promise(resolve => setTimeout(resolve, this.ivrTester.config.defaultWaitTime));
+          
+          // Extract the new prompt after continue
+          currentPrompt = this.ivrTester.extractTextFromResponse(response);
+          console.log(`New prompt after continue: "${currentPrompt.substring(0, 100)}${currentPrompt.length > 100 ? '...' : ''}"`);
+        }
+        
         historyEntry.ivrResponse = currentPrompt;
         this.history.push(historyEntry);
         
