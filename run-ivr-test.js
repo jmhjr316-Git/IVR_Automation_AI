@@ -10,7 +10,7 @@ const { program } = require('commander');
 const path = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
-const IvrFlowTester = require('../Tests/IVR/Crawler/ivr_flow_tester');
+const IvrFlowTester = require('./lib/ivr_flow_tester');
 const IvrIntegration = require('./ivr-integration');
 
 // Configure command line options
