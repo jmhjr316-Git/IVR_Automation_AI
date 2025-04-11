@@ -323,11 +323,69 @@ class IvrIntegration {
         // Handle different types of actions
         if (/^\d+$/.test(action) || action === '*' || action === '#') {
           // If action is digits or special characters, send as DTMF
-          response = await this.ivrTester.sendDtmf(action);
+          
+          // Check if this is a multi-digit input that needs to be split
+          if (/^\d{2,}$/.test(action)) {
+            // For multi-digit inputs, we need to split them
+            // First digit goes in first call, remaining digits in second call
+            const firstDigit = action.charAt(0);
+            const remainingDigits = action.substring(1);
+            
+            console.log(`Multi-digit input detected: ${action}`);
+            console.log(`Sending first digit: ${firstDigit}`);
+            
+            // Send the first digit
+            response = await this.ivrTester.sendDtmf(firstDigit);
+            
+            // Wait for IVR to process
+            await new Promise(resolve => setTimeout(resolve, this.ivrTester.config.defaultWaitTime / 2));
+            
+            console.log(`Sending remaining digits: ${remainingDigits}`);
+            
+            // Send the remaining digits
+            response = await this.ivrTester.sendDtmf(remainingDigits);
+            
+            // Log the split operation
+            logger.info('Split multi-digit input', { 
+              firstDigit, 
+              remainingDigits,
+              fullInput: action
+            });
+          } else {
+            // Single digit, send as is
+            response = await this.ivrTester.sendDtmf(action);
+          }
         } else {
           // For now, we only support DTMF
           console.log(`Warning: Non-DTMF action "${action}" - treating as DTMF`);
-          response = await this.ivrTester.sendDtmf(action);
+          
+          // Check if the non-DTMF action contains digits we can extract
+          const digitMatch = action.match(/\d+/);
+          if (digitMatch) {
+            const digits = digitMatch[0];
+            console.log(`Extracted digits from action: ${digits}`);
+            
+            // Handle multi-digit input
+            if (digits.length > 1) {
+              const firstDigit = digits.charAt(0);
+              const remainingDigits = digits.substring(1);
+              
+              console.log(`Sending first digit: ${firstDigit}`);
+              response = await this.ivrTester.sendDtmf(firstDigit);
+              
+              // Wait for IVR to process
+              await new Promise(resolve => setTimeout(resolve, this.ivrTester.config.defaultWaitTime / 2));
+              
+              console.log(`Sending remaining digits: ${remainingDigits}`);
+              response = await this.ivrTester.sendDtmf(remainingDigits);
+            } else {
+              response = await this.ivrTester.sendDtmf(digits);
+            }
+          } else {
+            // No digits found, try to send the first character
+            response = await this.ivrTester.sendDtmf(action.charAt(0));
+          }
+        }
         }
         
         // Wait for IVR to process
