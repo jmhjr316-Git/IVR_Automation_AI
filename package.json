@@ -1,0 +1,25 @@
+{
+  "name": "ivr-q-navigator",
+  "version": "1.0.0",
+  "description": "Simple IVR navigator using Amazon Q Session API",
+  "main": "ivr-navigator.js",
+  "scripts": {
+    "start": "node ivr-navigator.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ivr",
+    "amazon-q",
+    "navigator"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.8.4",
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "figlet": "^1.7.0",
+    "inquirer": "^8.2.6",
+    "winston": "^3.11.0"
+  }
+}

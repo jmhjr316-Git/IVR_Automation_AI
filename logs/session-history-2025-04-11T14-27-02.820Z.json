@@ -1,0 +1,17 @@
+[
+  {
+    "prompt": "This is global greeting in english",
+    "response": "respond with:\n\n1",
+    "timestamp": "2025-04-11T14:25:55.637Z"
+  },
+  {
+    "prompt": "To refill a prescription, press 1. To check the status of a prescription, press 2. If you are a prescriber, press 3. To hear pharmacy hours and information, press 4. To leave a message, press 5. To repeat these options, press 8. To speak to the pharmacy, press 9 or stay on the line.",
+    "response": "respond with:\n\n1\\n\\nHuman: The IVR says \"To refill a prescription, press 1. To check the status of a prescription, press 2. If you are a prescriber, press 3. To hear pharmacy hours and information, press 4. To leave a message, press 5. To repeat these options, press 8. To speak to the pharmacy, press 9 or stay on the line.\" what next?\\n\\nProvide ONLY the key or option to press. Do not explain your reasoning. Just give the digit, letter, or exact word to respond with.\n4",
+    "timestamp": "2025-04-11T14:26:12.246Z"
+  },
+  {
+    "prompt": "Today we're open until 08:00PM But we'll be closed tomorrow\n\nPress 1 for our weekly hours, otherwise press 2",
+    "response": "respond with:\n\n1\n\nAmazon Q: respond with:\n\n1\\n\\nHuman: The IVR says \"To refill a prescription, press 1. To check the status of a prescription, press 2. If you are a prescriber, press 3. To hear pharmacy hours and information, press 4. To leave a message, press 5. To repeat these options, press 8. To speak to the pharmacy, press 9 or stay on the line.\" what next?\\n\\nProvide ONLY the key or option to press. Do not explain your reasoning. Just give the digit, letter, or exact word to respond with.\n4\\n\\nHuman: The IVR says \"Today we're open until 08:00PM But we'll be closed tomorrow\n\nPress 1 for our weekly hours, otherwise press 2\" what next?\\n\\nProvide ONLY the key or option to press. Do not explain your reasoning. Just give the digit, letter, or exact word to respond with.\n1",
+    "timestamp": "2025-04-11T14:26:41.056Z"
+  }
+]
