@@ -1,18 +1,21 @@
 {
-  "name": "ivr-q-navigator",
+  "name": "ivr-automation-ai",
   "version": "1.0.0",
-  "description": "Simple IVR navigator using Amazon Q Session API",
-  "main": "ivr-navigator.js",
+  "description": "An intelligent IVR navigation system powered by Amazon Q",
+  "main": "run-ivr-test.js",
   "scripts": {
-    "start": "node ivr-navigator.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node run-ivr-test.js",
+    "interactive": "node ivr-navigator.js",
     "auto": "node ivr-auto-navigator.js",
-    "ivr-test": "node run-ivr-test.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "setup": "./setup-github.sh",
+    "extract-deps": "./extract-dependencies.sh"
   },
   "keywords": [
     "ivr",
-    "amazon-q",
-    "navigator"
+    "automation",
+    "ai",
+    "amazon-q"
   ],
   "author": "",
   "license": "ISC",
