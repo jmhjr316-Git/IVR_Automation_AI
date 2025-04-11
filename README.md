@@ -23,13 +23,13 @@ The system consists of three main components:
 1. **IVR Navigator**: Handles interaction with Amazon Q Session API
 2. **IVR Integration**: Connects to real IVR systems and handles the communication
 3. **IVR Flow Tester**: Manages the actual IVR calls and responses
+4. **Amazon Q Session API**: Provides a session-based interface to Amazon Q
 
 ## Prerequisites
 
 1. Node.js (v14 or higher)
-2. Amazon Q Session API running (`http://localhost:8081`)
-3. Amazon Q CLI configured with an IVR_tester profile
-4. Access to an IVR system for testing
+2. Amazon Q CLI configured with an IVR_tester profile
+3. Access to an IVR system for testing
 
 ## Installation
 
@@ -44,10 +44,27 @@ The system consists of three main components:
    npm install
    ```
 
-3. Make the scripts executable:
+3. Install API dependencies:
    ```
-   chmod +x ivr-navigator.js ivr-auto-navigator.js run-ivr-test.js
+   cd api
+   npm install
+   cd ..
    ```
+
+4. Make the scripts executable:
+   ```
+   chmod +x ivr-navigator.js ivr-auto-navigator.js run-ivr-test.js api/start-api.sh
+   ```
+
+## Starting the API
+
+Before running the IVR Automation AI, you need to start the Amazon Q Session API:
+
+```bash
+./api/start-api.sh
+```
+
+The API will be available at http://localhost:8081.
 
 ## Usage
 
@@ -136,6 +153,10 @@ Integration with real IVR systems, handling the communication between Amazon Q a
 
 Script to run automated IVR tests with detailed reporting.
 
+### api/server.js
+
+Amazon Q Session API server that provides a session-based interface to Amazon Q.
+
 ## Logs and Reports
 
 The system generates:
@@ -143,13 +164,6 @@ The system generates:
 - **JSON History**: Complete session history in JSON format
 - **Markdown Reports**: Human-readable reports of the navigation session
 - **Log Files**: Detailed logs for debugging and analysis
-
-## Dependencies
-
-This project depends on:
-
-- **IVR Flow Tester**: From the IVR Crawler project, handles the actual IVR calls
-- **IVR State Tracker**: Tracks the state of the IVR system during navigation
 
 ## Troubleshooting
 

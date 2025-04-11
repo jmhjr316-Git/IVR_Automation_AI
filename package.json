@@ -9,7 +9,8 @@
     "interactive": "node ivr-navigator.js",
     "auto": "node ivr-auto-navigator.js",
     "setup": "./setup-github.sh",
-    "extract-deps": "./extract-dependencies.sh"
+    "extract-deps": "./extract-dependencies.sh",
+    "start-api": "./api/start-api.sh"
   },
   "keywords": [
     "ivr",
