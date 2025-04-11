@@ -386,7 +386,6 @@ class IvrIntegration {
             response = await this.ivrTester.sendDtmf(action.charAt(0));
           }
         }
-        }
         
         // Wait for IVR to process
         await new Promise(resolve => setTimeout(resolve, this.ivrTester.config.defaultWaitTime));
